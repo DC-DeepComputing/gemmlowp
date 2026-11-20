@@ -100,7 +100,7 @@ GEMMLOWP_SET_DEFAULT_KERNEL(false, true, false, SSE4_64_Kernel12x4Depth2)
 GEMMLOWP_SET_DEFAULT_KERNEL(false, true, false, AVX2_64_Kernel24x8Depth2)
 #elif defined GEMMLOWP_RVV
 #include "kernel_rvv.h"
-GEMMLOWP_SET_DEFAULT_KERNEL(false, true, false, RVV_Kernel8x16Depth4)
+GEMMLOWP_SET_DEFAULT_KERNEL(false, true, false, RVV_Kernel16x8Depth4)
 #else
 #include "kernel_reference.h"
 namespace gemmlowp {

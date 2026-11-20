@@ -11,16 +11,13 @@
 
 namespace gemmlowp {
 
-// 8 rows x 16 columns, depth 4.
-//
-// The accumulator vector layout follows the column-major packed-result
-// layout: each lane of an accumulator vector is one output row, so a full
-// column of 8 int32 accumulators is one vint32m1_t and loads/stores from
-// the packed result are contiguous.
-class RVV_Kernel8x16Depth4 : public KernelBase {
+// 16 rows x 8 columns, depth 4. i32m2 accumulators (16 lanes) let each
+// widening MAC cover all 16 output rows, halving the number of scalar RHS
+// loads and DST vector stores versus the 8x16 i32m1 layout.
+class RVV_Kernel16x8Depth4 : public KernelBase {
  public:
-  typedef KernelFormat<KernelSideFormat<CellFormat<8, 4>, 1>,
-                       KernelSideFormat<CellFormat<4, 4>, 4> >
+  typedef KernelFormat<KernelSideFormat<CellFormat<16, 4>, 1>,
+                       KernelSideFormat<CellFormat<4, 4>, 2> >
       Format;
 
   const char* Name() const override;
