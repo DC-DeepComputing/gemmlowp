@@ -76,6 +76,13 @@
 #define GEMMLOWP_WASMSIMD
 #endif
 
+// Detect RISC-V Vector extension 1.0. The RVV kernel uses intrinsics
+// only (no inline asm), so this is detected outside the
+// GEMMLOWP_ALLOW_INLINE_ASM guard.
+#if defined(__riscv) && (__riscv_xlen == 64) && defined(__riscv_v_intrinsic) && !defined(GEMMLOWP_NO_RVV)
+#define GEMMLOWP_RVV
+#endif
+
 // Some of our optimized paths use inline assembly and for
 // now we don't bother enabling some other optimized paths using intrinddics
 // where we can't use inline assembly paths.
