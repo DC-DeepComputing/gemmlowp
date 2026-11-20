@@ -568,6 +568,10 @@ struct OutputPipelineExecutor {
 
 }  // namespace gemmlowp
 
+#ifdef GEMMLOWP_RVV
+#include "output_rvv.h"
+#endif
+
 #ifdef GEMMLOWP_NEON
 #include "output_neon.h"
 #elif defined(GEMMLOWP_SSE4)
